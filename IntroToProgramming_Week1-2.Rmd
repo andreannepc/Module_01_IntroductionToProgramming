@@ -1,0 +1,328 @@
+---
+title: "IntroToProgramming"
+output: html_document
+date: "2026-05-20"
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+```
+
+```{r}
+setwd("C:/Users/andre/OneDrive - James Cook University/TR2 2026/MB5370_TechniquesInMarineScience1/Module_01")
+
+#Go to session and click set working directory
+```
+
+```{r Workshop 1}
+2 + 1
+1:30
+6*
+  +2
+# Variables and Assignment ####
+# This section focuses on understanding how data is stored in R and why that matters.
+age <- 25
+first_name <- 'Bill'
+age + 1
+age + age
+#01_age <- 25 # starts with a number
+#!_age <- 25 # no special symbols
+#age bob <- 25 # no spaces
+Age <- 41 # cases matter
+`age bob` <- 25 # no spaces
+#Exercise
+sum(15, 25.1,20.25)
+algorithm <- sum(15, 25.1,20.25)
+addition <- 12
+sum(algorithm, addition)
+# 1.3.9 Functions 
+years_old <- 25.7
+round(years_old) # rounds up
+floor(years_old) # rounds down
+years_old <- 25.765
+round (years_old, 2) # comma after the object to specify argument
+args(round) # use args in the Console
+function(x, digits = 0)
+#Exercise
+age <- 25
+name <- "Andy"
+sentence <- paste(name,"is",age,"years old")
+print(sentence)
+# 1.3.10 Debugging
+# Misconceptions
+# variables in programs do not work the same way as they do in spreadsheets
+grade <- 55
+total <- grade + 10
+print (total)
+grade <- 90
+print (total) # value of total in a spreadsheet will be 100, but in programming a variable holds the value it was assigned (65)
+total <- grade + 10
+print (total) # executed in the way it was defined
+# What will this code do? multiply
+p <- 2
+z <- 5
+out <- p * z  # What should the value of out be? 10
+print (out) # What is the value of out? Is it the same as expected?
+# debugging errors
+out <- p * a # undefined variable.
+## > Error: object 'a' not found
+out <- p * z
+# Testing
+x <- 1
+is.character(x)
+is.numeric (x)
+#Exercise What’s wrong with this code? 
+#Paste it into your script, and use comments to identify lines where there is a problem and add a comment about the nature of the problem.
+my_quiz <- c("uno",
+             "dos",
+             "tres",
+             "cuatro",#missing coma
+             "cinco")
+print (my_quiz)#quiz with a z
+str(my_quiz)
+length(my_quiz) #len does not exist as a function change to length
+
+# 1.3.11 Data types
+
+#Class exercise 
+
+# Numeric variable
+my_numeric_variable = 4.2
+class(my_numeric_variable)#numeric
+typeof(my_numeric_variable)#double
+length(my_numeric_variable)#1
+attributes(my_numeric_variable) #NULL
+
+# Character variable
+my_character <- "world"
+class(my_character)#character
+typeof(my_character)#character
+length(my_character)#1
+attributes(my_character)#Null
+
+# Integer variable
+my_integer <- 4L
+class(my_integer)#integer
+typeof(my_integer)#integer
+length(my_integer)#1
+attributes(my_integer)#Null
+
+# Logical variable
+my_logical <- TRUE
+class(my_logical)#logical
+typeof(my_logical)#logical
+length(my_logical)#1
+attributes(my_logical)#Null
+
+# 1.3.12 Data Structures
+y <- c(1, 2, 3)
+z <- c("Hannah", "Allie", "Grace")
+class(z) #character
+class(y) #numeric
+x <- list(1, "a", TRUE)
+x[[2]]
+
+# 1.3.13 Data frames and tables
+my_dataframe <- data.frame (no = c(1,2,3), 
+                            name= c("Hannah", "Allie", "Grace"), 
+                            active= c(TRUE, FALSE, TRUE))
+my_dataframe
+str (my_dataframe)
+my_dataframe$no = as.factor(my_dataframe$no)
+str (my_dataframe)
+
+# 1.3.14 Packages and libraries
+install.packages("tidyverse") # download and install
+library(tidyverse)
+install.packages("ggplot2") # comment out so it doesn’t run again
+install.packages("ggplot", "tidyr", "earthtones","dplyr","Terra")
+library (ggplot2)
+
+#1.3.15 Coding best practices
+#------------------------------------#
+# MB5370: Introduction to Programming
+# Andreanne Paul-Chowdhury
+# may 2026
+# This code is the result of workshop one held at JCU.
+# load packages
+library(ggplot2)
+library(tidyr)
+# load packages
+library(tidyverse)
+#Exercise
+# 1. Read the .csv dataset into R using read.csv() or readr::read_csv()
+# 2. Check that the dataset imported correctly using functions like
+#    head(), str(), names(), or View()
+# 3. Identify the column containing species names and the column
+#    containing abundance/count data
+# 4. Filter the dataset to keep only the single species we want to study
+# 5. Clean the data if necessary (remove missing values, fix spelling,
+#    convert columns to numeric, etc.)
+# 6. Summarise or group the data if needed
+#    (e.g. total abundance per site, reef, or survey time)
+# 7. Create a plot of the species abundance using a plotting function
+#    such as plot() or ggplot()
+# 8. Add labels and titles to make the graph easier to understand
+#    (x-axis, y-axis, title, colours, etc.)
+# 9. Check the final plot to make sure it displays the data correctly
+```
+
+```{r Calling on a script}
+#How to add a script w/out copy pasting it in, this calls on a script
+source("Module_01.R")
+```
+
+```{r Workshop 2}
+#2.16 Load packages
+#install.packages("tidyverse")
+#library(tidyverse)
+mpg
+?mpg
+#2.17 Create your first ggplot
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy))
+#2.18 Understanding the grammar of graphics
+#2.18.1 graphing template
+#ggplot(data = <DATA>) +
+  #<GEOM_FUCTION>(mapping = aes(<MAPPINGS))
+#2.18.2 Aesthetic mappings
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, colour = class)) #colour
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, size = class)) #size
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class)) #alpha
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class)) #shape
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), colour = "blue") #remember to change ()
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy), colour = displ < 5) # it cant find it 
+#2.19 Troubleshooting 
+ggplot(data=mpg)
++  geom_point(mapping = aes(x = displ, y = hwy), colour = "blue") # + should be on the top line
+#2.20 Facet and panel plots
+#facet_wrap() only use for discrete variables
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap (~ class, nrow= 2)
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ cyl) #more than one variable
+?facet_wrap
+#very good for publication 
+#2.21 Fitting simple lines
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) #display data as points
+ggplot(data=mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy)) #display as smooth lines
+ggplot(data=mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv)) #change the line type
+ggplot(data=mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv)) #allows you to group
+ggplot(data=mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, colour = drv), show.legend = FALSE) #change the colour of each line based on drv value
+ggplot(data=mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy)) #plot multiple geoms
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth() #same plot as above but more efficient
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(colour = class)) +
+  geom_smooth() #style points by themselves
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(colour = class)) +
+  geom_smooth(data = filter (mpg, class == "subcompact"), se = FALSE) #we use a filter to select a subset of the data and plot only that subset
+# Exercise 
+# Line chart = geom_line()
+# Boxplot = geom_boxplot()
+# Histogram = geom_histogram()
+# Area chart = geom_area()
+#ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+#  geom_point() + 
+#  geom_smooth()
+#ggplot() + 
+#  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+#  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
+# Only difference is code structure
+#2.22 Transformations and Stats
+#2.22.1 Plotting statistics
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x=cut))
+ggplot(data = diamonds) +
+  stat_count(mapping = aes(x=cut)) #you can use geom and stats interchangeably
+#2.22.2 Overriding defaults in ggplot2
+demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+demo
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity") #
+#override teh defautl mappinf 
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))
+#Warning: `stat(prop)` was deprecated in ggplot2 3.4.0.
+#2.22.3 Plotting statistical details 
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median)
+#2.23 Aesthetic adjestments 
+#use aesthetic colour\fill to change aspects of bar colours
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, colour = cut))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut))
+#new variable clarity
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+#Position adjestmetns ( identity (raw data), fill (changes heights) and dodge (which forces #ggplot2 to not put things on top of each other))
+#To alter transparency (alpha)
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
+  geom_bar(alpha = 1/5, position = "identity")
+#To color the bar outlines with no fill color
+ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + geom_bar(fill = NA, position = "identity")
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
+#2.24 The layered grammar of graphics 
+#ggplot(data = <DATA>) + 
+#  <GEOM_FUNCTION>(
+#     mapping = aes(<MAPPINGS>),
+#     stat = <STAT>, 
+#     position = <POSITION>
+#  ) +
+#  <FACET_FUNCTION>
+```
+
+```{r Workshop 3}
+## install if needed (do this exactly once):
+## install.packages("usethis")
+library(usethis)
+use_git_config(user.name = "Andreanne Paul-Chowdhury", user.email = "andreannepc@gmail.com")
+install.packages("usethis")
+usethis::git_sitrep()
+## Create a PAT
+usethis::create_github_token()
+gitcreds::gitcreds_set()
+gitcreds::gitcreds_set()
+
+## Tracking your own project
+
+```
+
+```{r Workshop 4}
+
+```
+
