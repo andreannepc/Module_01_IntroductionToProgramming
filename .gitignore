@@ -4,3 +4,16 @@
 .httr-oauth
 .DS_Store
 .quarto
+
+
+# Extensions to ignore
+*.html
+*.png
+*.jpg
+*.jpeg
+*.eps
+*.pdf
+*.bmp
+*.svg
+*.tiff
+*.Rproj

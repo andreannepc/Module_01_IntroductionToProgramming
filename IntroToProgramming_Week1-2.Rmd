@@ -319,10 +319,148 @@ gitcreds::gitcreds_set()
 gitcreds::gitcreds_set()
 
 ## Tracking your own project
+usethis::use_git()
+usethis::use_github()
 
 ```
 
 ```{r Workshop 4}
+#AI intergration 
+#4.4 Chattr
+install.packages("ellmer")
+install.packages("chattr")
+
+# Added Gemini 
+#Set Gemini shortcut (ctrl + shift + G)
+#Asked the following: Show me how to load the built-in iris dataset and use ggplot2 to build a scatter plot of Sepal.Length versus Sepal.Width colored by Species.
+library(ggplot2)
+
+data(iris)
+
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point()
+
+#4.5 Conditional Logic - filtering your data
+##uses round brackets () for the logical condition
+###curly braces {} for the action if that condition is true
+#Tidyverse Alternative: Vectorised Conditionals (dplyr)
+###The if_else(condition, true_output, false_output) function evaluates an entire column item-by-item
+
+####Load tidyverse (if not already loaded)
+library(tidyverse)
+
+# Sample coral data
+coral_monitoring <- tibble(
+  site = c("Site_A", "Site_B", "Site_C"),
+  depth_m = c(12, 35, 8)
+)
+
+# Classify depth using if_else
+coral_monitoring <- coral_monitoring %>% 
+  mutate(zone = if_else(depth_m > 30, "Deep Reef", "Shallow Reef"))
+
+#Task: 
+
+## What do you think that function mutate() does?
+
+###The mutate() function is used to add new variables or transform existing variables in a data frame. ###It allows you to create new columns based on the values of other columns. To learn more ?mutate
+
+##How can we get more information about it? What about the %>% symbol?
+###The %>% symbol, also known as the "pipe" operator, passes the output of one function as the first argument to the next function. It helps make code more readable and easier to understand by allowing you to chain multiple operations together in a sequential manner, flowing from left to right. To learn more ?`%>%`
+
+#case_when()
+#more than two possibilities, stacking multiple if-else blocks becomes unreadable. case_when() provides a clean, sequential evaluation layout using formula tildes (~)
+
+coral_monitoring <- coral_monitoring %>% 
+  mutate(reef_category = case_when(
+    depth_m < 10  ~ "Lagoon / Flats",
+    depth_m <= 30 ~ "Crest / Slope",
+    depth_m > 30  ~ "Mesophotic / Deep",
+    TRUE          ~ "Unclassified" # Catch-all remainder
+  ))
+
+#Task: Environmental Stress Classification
+library(dplyr) # For tibble, mutate, case_when
+
+marine_stations <- tibble(
+  salinity = c(35, 28, 32, 12)
+) %>%
+  mutate(
+    environment_type = case_when(
+      salinity < 15 ~ "Estuarine",
+      salinity >= 15 & salinity <= 30 ~ "Brackish",
+      salinity > 30 ~ "Marine"
+    )
+  )
+
+marine_stations
+
+# 4.6 Automation — Iterating Efficiently
+##Base R: for-loops
+### Classic loop anatomy
+for (year in 2020:2024) {
+  print(paste("Processing climate data for year:", year))
+}
+### Loop across index sequences
+transect_lengths <- c(50, 100, 25, 75)
+
+for (i in seq_along(transect_lengths)) {
+  print(paste("Transect number", i, "measures", transect_lengths[i], "metres."))
+}
+#Tidyverse Alternative: Functional Programming (purrr)
+#Other functions
+###map() Returns a flexible List structure
+###map_dbl() Returns a vector of Decimals / Numeric values
+###map_chr() Returns a vector of Text strings / Characters
+###map_df() Returns a combined Data Frame / Tibble
+
+##Comparison Example: Calculating Square Roots of Site Vectors
+###Using a standard for-loop:
+site_areas <- c(144, 400, 625)
+results <- numeric(length(site_areas)) # Must build an empty container first
+
+for(i in seq_along(site_areas))
+  results[i] <- sqrt(site_areas[i])
+
+###Using the purrr equivalent:
+library(purrr)
+####Map directly and define your expected output type explicitly
+mapped_results <- map_dbl(site_areas, sqrt)
+
+###Iterating Across Complex Groups
+####Iterate a summary function over split lists of data
+iris %>% 
+  split(.$Species) %>% 
+  map(~summary(.x))
+
+##Task using chattr: 
+library(purrr) # For map_dbl
+
+# Sample list of fish count data
+fish_counts_list <- list(
+  reef_a = c(10, 12, 8, 15, 11),
+  reef_b = c(20, 18, 22, 19, 25),
+  reef_c = c(5, 7, 6, 9, 8)
+)
+
+# Using a for-loop
+mean_counts_for_loop <- vector("double", length(fish_counts_list))
+for (i in seq_along(fish_counts_list)) {
+  mean_counts_for_loop[i] <- mean(fish_counts_list[[i]])
+}
+
+# Using purrr::map_dbl
+mean_counts_purrr <- map_dbl(fish_counts_list, mean)
+
+# Display results
+cat("Mean counts (for-loop):\n")
+print(mean_counts_for_loop)
+cat("\nMean counts (purrr::map_dbl):\n")
+print(mean_counts_purrr)
+
+
+ 
+```
 
 ```
 
