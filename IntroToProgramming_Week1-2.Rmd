@@ -326,6 +326,26 @@ usethis::use_github()
 
 ```{r Workshop 4}
 #AI intergration 
+#4.3 Exercise: AI-Driven Data Visualisation Challenge
+##Step 1: Prepare Your Workspace
+### Load tidyverse and palmerpenguins libraries
+library(tidyverse)
+install.packages("palmerpenguins")
+library(palmerpenguins)
+##Step 2: Prompt for a Multi-Variable Scatter Plot
+
+#Create a ggplot scatter plot using the penguins dataset. 
+#Plot bill_length_mm on the x-axis and bill_depth_mm on the y-axis.
+#Color points by species and use geom_point with size 3.
+#Add a minimal theme and clean labels.
+
+
+
+
+
+
+
+
 #4.4 Chattr
 install.packages("ellmer")
 install.packages("chattr")
